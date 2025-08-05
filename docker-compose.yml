@@ -12,7 +12,7 @@ services:
       - articles_network
 
   backend:
-    build: .
+    build: ./backend
     container_name: articles_backend
     ports:
       - "5000:5000"
@@ -25,7 +25,7 @@ services:
       - articles_network
 
   frontend:
-    build: .
+    build: ./frontend
     container_name: articles_frontend
     ports:
       - "8501:8501"
