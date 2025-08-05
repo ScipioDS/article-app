@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name: articles_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - articles_network
+
+  backend:
+    build: .
+    container_name: articles_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_HOST=mongodb
+    depends_on:
+      - mongodb
+    command: python app.py
+    networks:
+      - articles_network
+
+  frontend:
+    build: .
+    container_name: articles_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_HOST=backend
+    depends_on:
+      - backend
+    command: streamlit run frontend.py --server.address=0.0.0.0
+    networks:
+      - articles_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  articles_network:
+    driver: bridge
