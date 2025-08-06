@@ -13,4 +13,4 @@ COPY frontend.py .
 EXPOSE 5000 8501
 
 # Default command (will be overridden in docker-compose)
-CMD ["python", "app.py"]
+CMD ["python", "frontend.py"]
