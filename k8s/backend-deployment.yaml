@@ -33,7 +33,7 @@ spec:
             cpu: "200m"
         livenessProbe:
           httpGet:
-            path: /articles
+            path: /health
             port: 5000
           initialDelaySeconds: 30
           periodSeconds: 10

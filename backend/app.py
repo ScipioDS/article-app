@@ -88,5 +88,9 @@ def delete_article(article_id):
         return jsonify({'message': 'Article deleted successfully'})
     return jsonify({'error': 'Article not found'}), 404
 
+@app.route('/health')
+def health_check():
+    return {'status': 'healthy'}, 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
