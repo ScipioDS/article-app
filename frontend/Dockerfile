@@ -9,8 +9,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files
 COPY frontend.py .
 
-# Expose ports
-EXPOSE 5000 8501
+# Expose port
+EXPOSE 8501
 
-# Default command (will be overridden in docker-compose)
-CMD ["python", "frontend.py"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+CMD ["streamlit", "run", "frontend.py", "--server.address=0.0.0.0"]
